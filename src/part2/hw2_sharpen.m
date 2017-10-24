@@ -4,7 +4,7 @@
 
 % Required for octave - can comment out for matlab
 %pkg load image
-image_input='in_smoothed.tif'
+image_input='in.tif'
 % read image from file into matrix
 img = imread(image_input);
 

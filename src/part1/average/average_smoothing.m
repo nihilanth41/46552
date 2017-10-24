@@ -13,31 +13,31 @@ img = imread(image_input);
 [m,n] = size(img);
 
 % window size
-ws = 3;
+ws = 5;
 % window 
 W = ones(ws,ws) / (ws*ws); 
 
 % Pad image borders with 0
-image_padded = zeros(m+2, n+2);
+image_padded = zeros(m+4, n+4);
 image_padded = cast(image_padded, class(img)); 
-image_padded(2:end-1,2:end-1) = img;
+image_padded(3:end-2,3:end-2) = img;
 
 image_output = zeros(size(image_padded));
 image_output = cast(image_output, class(img));
 
-for i = 2:1:m+1
-    for j = 2:1:n+1
+for i = 3:1:m+2
+    for j = 3:1:n+2
         val = 0;
-        for k=-1:1:1
-            for l=-1:1:1
-                val = val+image_padded(i+k,j+l)*W(k+2,l+2);
+        for k=-2:1:2
+            for l=-2:1:2
+                val = val+image_padded(i+k,j+l)*W(k+3,l+3);
             end
         end
         image_output(i,j) = val;
     end
 end
 
-image_output = image_output(2:end-1,2:end-1);
+image_output = image_output(3:end-2,3:end-2);
 
 % Ground-truth using imfilter
 img_smoothed_control = imfilter(img, W); 
